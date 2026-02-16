@@ -34,7 +34,7 @@ The dataset consists of the following performance metrics collected during a pla
 ## 🎯 Objectives
 * **Performance Prediction**: Build a robust classifier to identify future NBA veterans versus those who will exit the league early.
 * **Risk Mitigation**: Prioritize the identification of "busts" (Class 0) to help teams avoid high-risk investments.
-* **Comparative Analysis**: Evaluate the effectiveness of different balancing techniques, including Cost-Sensitive Learning (Balanced Weights) and SMOTE.
+* **Comparative Analysis**: Evaluate the effectiveness of different balancing techniques, including Cost-Sensitive Learning (Balanced Weights), SMOTE , Ensemble methods and Neural Networks.
 
 ## 📊 Dataset & Cleaning
 The raw data was subjected to a rigorous cleaning process to ensure model reliability:
@@ -62,7 +62,7 @@ Through iterative testing, we identified a clear "Rookie Information Ceiling" at
 
 
 ## 🏆 Final Results & Key Findings
-* **The Winner**: The **Optimized Gaussian Naive Bayes (GNB)** with 5 features and `var_smoothing=0.001` emerged as the definitive model. It achieved the project's highest **F1-Macro of 0.5660**.
+* **Highest f1-score**: The **Optimized Gaussian Naive Bayes (GNB)** with 5 features and `var_smoothing=0.001` emerged as the best model. It achieved the project's highest **F1-Macro of 0.5660**.
 * **Simplicity vs. Complexity**: Simple probabilistic models (GNB) with targeted feature engineering outperformed complex deep learning (MLP) and ensemble (Stacking) architectures.
 * **The "Talent Tax"**: Models that prioritize finding "busts" (like SVM) incur a high cost of opportunity, often misclassifying successful players as failures. 
 * **The Year-1 Signal**: The results prove that while rookie stats are strong indicators, the "signal" for a 5-year career is not fully formed in the first season. Longevity is heavily influenced by variables not present in box scores, such as injuries and work ethic.
@@ -91,7 +91,7 @@ To run this project, you need the following Python libraries:
 
 ### Academic Research
 * **SMOTE**: Chawla, N. V., Bowyer, K. W., Hall, L. O., & Kegelmeyer, W. P. (2002). *SMOTE: Synthetic Minority Over-sampling Technique*. Journal of Artificial Intelligence Research, 16, 321–357.
-* **Stacked Generalization (Stacking)**: Wolpert, D. H. (1992). *Stacked Generalization*. Neural Networks, 5(2), 241-259. [Link to Research](https://www.sciencedirect.com/science/article/abs/pii/0893608092900046) - The seminal paper that introduced the two-layer meta-learning architecture used in this project.
+* **Stacked Generalization (Stacking)**: Wolpert, D. H. (1992). *Stacked Generalization*. Neural Networks, 5(2), 241-259. - The seminal paper that introduced the two-layer meta-learning architecture used in this project.
 * **Voting Classifiers**: Kuncheva, L. I. (2004). *Combining Pattern Classifiers: Methods and Algorithms*. Wiley. - A foundational text on how combining independent models through voting (Soft/Hard) reduces variance and improves robustness.
 * **Scikit-learn Documentation**: [Ensemble Methods User Guide](https://scikit-learn.org/stable/modules/ensemble.html) - Official documentation covering the implementation of `VotingClassifier` and `StackingClassifier`.
 
