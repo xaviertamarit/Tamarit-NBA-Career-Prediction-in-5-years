@@ -45,16 +45,37 @@ The raw data was subjected to a rigorous cleaning process to ensure model reliab
 ## 🧪 Modeling Strategy
 We explored a wide range of algorithms to address the class imbalance:
 1.  **Baseline Models**: Logistic Regression, Decision Trees, and Perceptrons.
-2.  **Ensemble Methods**: Random Forest and AdaBoost.
+2.  **Ensemble Methods**: Random Forest, AdaBoost, Soft Voting, and Stacking.
 3.  **Balanced Approaches**: SVM with RBF Kernel and `class_weight='balanced'`.
-4.  **Oversampling**: Implementing **SMOTE** to generate synthetic minority samples.
+4.  **Advanced Neural Networks**: Multi-Layer Perceptron (MLP) using a "funnel" architecture (16, 8) and ReLU activation.
+5.  **Oversampling**: Implementing **SMOTE** (Synthetic Minority Over-sampling Technique) to generate synthetic minority samples.
+6.  **Feature Selection**: Transitioning from a full-statistical set to a targeted "Top-5" selection (GP, MIN, PTS, FG%, REB) to reduce noise.
 
-## 🏆 Final Results
+## 📊 Performance Comparison
+Through iterative testing, we identified a clear "Rookie Information Ceiling" at an F1-Macro score of approximately 0.56. The hierarchy of models revealed different strategic utilities:
+
+| Model Strategy | F1-Macro | TP | TN | FP | FN | Strategic Utility |
+| :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| GNB (Top-5 Features) | **0.5660** | 1,064 | 57 | 164 | 156 | **Best for Talent Discovery** |
+| GNB (Full Features) | 0.5564 | 886 | 104 | 334 | 117 | Balanced Scouting |
+| SVM (Balanced) | 0.5367 | 751 | 141 | 459 | 80 | **Best for Risk Mitigation** |
 
 
+## 🏆 Final Results & Key Findings
+* **The Winner**: The **Optimized Gaussian Naive Bayes (GNB)** with 5 features and `var_smoothing=0.001` emerged as the definitive model. It achieved the project's highest **F1-Macro of 0.5660**.
+* **Simplicity vs. Complexity**: Simple probabilistic models (GNB) with targeted feature engineering outperformed complex deep learning (MLP) and ensemble (Stacking) architectures.
+* **The "Talent Tax"**: Models that prioritize finding "busts" (like SVM) incur a high cost of opportunity, often misclassifying successful players as failures. 
+* **The Year-1 Signal**: The results prove that while rookie stats are strong indicators, the "signal" for a 5-year career is not fully formed in the first season. Longevity is heavily influenced by variables not present in box scores, such as injuries and work ethic.
+
+## 📈 Strategic Conclusion
+There is no "one fits all" model. 
+1. **Aggressive Teams**: Should use the **GNB Top-5** to find stars while accepting the risk of "busts".
+2. **Conservative Contenders**: Should use the **SVM** to avoid wasting roster spots on high-risk players.
+3. **Teams in Transition **: Should use the **Full-Feature GNB**. This model serves as a "balanced bridge," considering the complete statistical profile of the rookie. It is perfect for franchises with a healthy salary cap that want to find "diamonds in the rough" without the extreme bias of the Top-5 approach.
 
 ## 🛠️ Requirements
 To run this project, you need the following Python libraries:
+* `numpy`
 * `scikit-learn`
 * `pandas`
 * `numpy`
@@ -70,6 +91,9 @@ To run this project, you need the following Python libraries:
 
 ### Academic Research
 * **SMOTE**: Chawla, N. V., Bowyer, K. W., Hall, L. O., & Kegelmeyer, W. P. (2002). *SMOTE: Synthetic Minority Over-sampling Technique*. Journal of Artificial Intelligence Research, 16, 321–357.
+* **Stacked Generalization (Stacking)**: Wolpert, D. H. (1992). *Stacked Generalization*. Neural Networks, 5(2), 241-259. [Link to Research](https://www.sciencedirect.com/science/article/abs/pii/0893608092900046) - The seminal paper that introduced the two-layer meta-learning architecture used in this project.
+* **Voting Classifiers**: Kuncheva, L. I. (2004). *Combining Pattern Classifiers: Methods and Algorithms*. Wiley. - A foundational text on how combining independent models through voting (Soft/Hard) reduces variance and improves robustness.
+* **Scikit-learn Documentation**: [Ensemble Methods User Guide](https://scikit-learn.org/stable/modules/ensemble.html) - Official documentation covering the implementation of `VotingClassifier` and `StackingClassifier`.
 
 ### Technical Documentation
 * **Scikit-learn User Guide**: [Imbalanced Datasets](https://scikit-learn.org/stable/modules/imbalanced_learn.html) - Documentation on handling class imbalance in classification tasks.
